@@ -4,12 +4,6 @@ import CleanWebpackPlugin = require('clean-webpack-plugin');
 import WorkboxPlugin = require('workbox-webpack-plugin');
 
 module.exports = {
-  mode: 'development',
-  devtool: 'inline-source-map',
-  devServer: {
-    contentBase: './dist',
-    hot: true,
-  },
   entry: './src/index.tsx',
   output: {
     filename: '[name].js',
@@ -24,7 +18,7 @@ module.exports = {
       },
       {
         test: /\.js$/,
-        use: ['babel-loader', 'eslint-loader'],
+        use: ['eslint-loader'],
         exclude: /node_modules/,
       },
       {
@@ -58,4 +52,7 @@ module.exports = {
       skipWaiting: true,
     }),
   ],
+  node: {
+    fs: 'empty',
+  },
 };
