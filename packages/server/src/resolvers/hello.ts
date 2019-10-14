@@ -1,1 +1,1 @@
-export const hello = (_: null, { name }: { name: string }) => `Hello ${name || 'World'}`
+export const hello = (_: null, { name }: { name: string }): string => `Hello ${name || 'World'}`;

@@ -30,9 +30,9 @@ const NavList = styled.ul`
   list-style: none;
 `;
 
-const NavItem = styled.li``
+const NavItem = styled.li``;
 
-const navItems: string[] = ['Search', 'About']
+const navItems: string[] = ['Search', 'About'];
 
 export const Header: React.FC = (): JSX.Element => (
   <StyledHeader>
@@ -47,4 +47,4 @@ export const Header: React.FC = (): JSX.Element => (
       </Nav>
     </Container>
   </StyledHeader>
-)
+);
