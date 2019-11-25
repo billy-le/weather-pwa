@@ -5,12 +5,13 @@ import 'normalize.css';
 import './style.css';
 
 import { Header } from './components/Header';
+import { Main } from './components/Main';
 
 const App: React.FC = (): JSX.Element => {
   return (
-    <div id="app">
+    <div id="app" className="bg-purple-700 text-white h-screen">
       <Header />
-      Hello, World
+      <Main />
     </div>
   );
 };

@@ -1,5 +1,7 @@
 export const typeDefs = `
+scalar JSON
+
   type Query {
-    hello(name: String): String!
+    forecast(latitude: Float, longitude: Float): JSON
   }
 `;

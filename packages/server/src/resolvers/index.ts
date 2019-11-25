@@ -1,7 +1,7 @@
-import { hello } from './hello';
+import { forecast } from './forecast';
 
 export const resolvers = {
   Query: {
-    hello,
+    forecast,
   },
 };
