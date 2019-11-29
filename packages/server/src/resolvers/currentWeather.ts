@@ -4,6 +4,8 @@ import { queryString } from '../utils';
 
 import axios from 'axios';
 
+const url = 'http://api.openweathermap.org/data/2.5/weather';
+
 export const currentWeather = (
   _: null,
   params?: {
@@ -17,7 +19,7 @@ export const currentWeather = (
   },
 ): Promise<any> => {
   return axios
-    .get(`http://api.openweathermap.org/data/2.5/weather/${queryString(params)}&APPID=${OPEN_WEATHER_KEY}`)
+    .get(`${url}${queryString(params)}&APPID=${OPEN_WEATHER_KEY}`)
     .then(res => res.data)
     .catch(console.log);
 };
