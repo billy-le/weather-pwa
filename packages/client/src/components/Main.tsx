@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useLazyQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 import { weatherIcons } from '../utils/weatherIcons';
@@ -7,8 +7,8 @@ import { weatherIcons } from '../utils/weatherIcons';
 import { Form } from './Form';
 
 const CURRENT_WEATHER_QUERY = gql`
-  query CurrentWeatherQuery($latitude: Float!, $longitude: Float!) {
-    currentWeather(lat: $latitude, lon: $longitude)
+  query CurrentWeatherQuery($lat: Float!, $lon: Float!) {
+    currentWeather(lat: $lat, lon: $lon)
   }
 `;
 
@@ -33,14 +33,16 @@ interface CurrentWeather {
 export const Main = (): JSX.Element | null => {
   const [getCurrentWeather, { loading, data }] = useLazyQuery<CurrentWeather>(CURRENT_WEATHER_QUERY);
 
-  useEffect(() => {
-    return;
-    if (window.navigator && window.navigator.geolocation) {
-      window.navigator.geolocation.getCurrentPosition(position => {
-        getCurrentWeather({ variables: { latitude: position.coords.latitude, longitude: position.coords.longitude } });
+  function handleGetCurrentWeather(formValues: any): void {
+    if (formValues.position) {
+      getCurrentWeather({
+        variables: {
+          lat: formValues.position.coords.latitude,
+          lon: formValues.position.coords.longitude,
+        },
       });
     }
-  }, []);
+  }
 
   return loading ? null : data ? (
     <div className="container mx-auto text-center pt-40 text-3xl">
@@ -51,6 +53,6 @@ export const Main = (): JSX.Element | null => {
       ></span>
     </div>
   ) : (
-    <Form />
+    <Form methods={{ handleGetCurrentWeather }} />
   );
 };
