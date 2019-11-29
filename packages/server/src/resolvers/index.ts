@@ -1,7 +1,7 @@
-import { forecast } from './forecast';
+import { currentWeather } from './currentWeather';
 
 export const resolvers = {
   Query: {
-    forecast,
+    currentWeather,
   },
 };

@@ -1,7 +1,6 @@
 export const typeDefs = `
-scalar JSON
-
+  scalar JSON
   type Query {
-    forecast(latitude: Float, longitude: Float): JSON
+    currentWeather(lat: Float, lon: Float, zip: String, q: String, id: Int, lang: String, units: String): JSON
   }
 `;

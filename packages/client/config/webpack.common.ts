@@ -2,6 +2,7 @@ import path = require('path');
 import HtmlWebpackPlugin = require('html-webpack-plugin');
 import CleanWebpackPlugin = require('clean-webpack-plugin');
 import WorkboxPlugin = require('workbox-webpack-plugin');
+import Dotenv = require('dotenv-webpack');
 
 module.exports = {
   entry: './src/index.tsx',
@@ -35,9 +36,12 @@ module.exports = {
     extensions: ['.tsx', '.ts', '.js'],
   },
   plugins: [
+    new Dotenv({
+      path: path.resolve('.env'),
+    }),
     new CleanWebpackPlugin.CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      title: 'Typescript React Webpack Boilerplate',
+      title: 'Weather PWA',
       template: './src/index.html',
     }),
     new WorkboxPlugin.GenerateSW({
@@ -47,7 +51,4 @@ module.exports = {
       skipWaiting: true,
     }),
   ],
-  node: {
-    fs: 'empty',
-  },
 };
