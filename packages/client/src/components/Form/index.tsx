@@ -11,7 +11,7 @@ import caretDown from '@iconify/icons-mdi/arrow-down-drop';
 import './Form.css';
 
 // types
-import { Countries, Country, FormValues, ReverseGeolocation } from '../types';
+import { Countries, Country, FormValues, ReverseGeolocation } from '../../types';
 
 const keys = Object.keys(countries);
 

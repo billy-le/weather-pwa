@@ -2,6 +2,12 @@ import React from 'react';
 import { useLazyQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 import { weatherIcons, tempConversion } from '../utils/';
+import Icon from '@iconify/react';
+import iconCelsius from '@iconify/icons-mdi/temperature-celsius';
+import iconFahrenheit from '@iconify/icons-mdi/temperature-fahrenheit';
+import thermometer from '@iconify/icons-mdi/thermometer';
+
+import { Context } from '../context';
 
 // components
 import { Form } from './Form';
@@ -54,27 +60,42 @@ export const Main = (): JSX.Element | null => {
   }
 
   return (
-    <>
-      <Form methods={{ handleGetCurrentWeather }} />
-      {loading ? null : data && data.currentWeather ? (
-        <div className="container mx-auto">
-          <div className="flex justify-center">
-            <div className="p-8">
-              <div className="text-6xl leading-none">
-                {tempConversion({ from: 'kelvin', to: 'celsius', value: data.currentWeather.main.temp }).toFixed(2)}
+    <Context.Consumer>
+      {(context): JSX.Element => (
+        <>
+          <Form methods={{ handleGetCurrentWeather }} />
+          {loading ? null : data && data.currentWeather ? (
+            <div className="container mx-auto">
+              <div className="flex justify-center">
+                <div className="p-8">
+                  <div className="flex">
+                    <div className="text-6xl leading-none">
+                      {tempConversion({
+                        from: 'kelvin',
+                        to: context.unit,
+                        value: data.currentWeather.main.temp,
+                      }).toFixed(2)}
+                    </div>
+                    <Icon
+                      className="text-3xl mt-2"
+                      icon={context.unit === 'imperial' ? iconFahrenheit : iconCelsius}
+                    ></Icon>
+                    <Icon className="text-3xl mt-2" icon={thermometer}></Icon>
+                  </div>
+                  <div className="text-xl">{data.currentWeather.name}</div>
+                </div>
+                <div className="p-8 flex flex-col">
+                  <div
+                    className="iconify mx-auto text-6xl"
+                    data-icon={`wi:${weatherIcons[`${data.currentWeather.weather[0].id}`].iconify}`}
+                  ></div>
+                  <div className="mt-1">{data.currentWeather.weather[0].description}</div>
+                </div>
               </div>
-              <div className="text-xl">{data.currentWeather.name}</div>
             </div>
-            <div className="p-8 flex flex-col">
-              <div
-                className="iconify mx-auto text-6xl"
-                data-icon={`wi:${weatherIcons[`${data.currentWeather.weather[0].id}`].iconify}`}
-              ></div>
-              <div className="mt-1">{data.currentWeather.weather[0].description}</div>
-            </div>
-          </div>
-        </div>
-      ) : null}
-    </>
+          ) : null}
+        </>
+      )}
+    </Context.Consumer>
   );
 };
