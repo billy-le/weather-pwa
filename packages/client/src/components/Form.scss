@@ -1,0 +1,12 @@
+@keyframes changeColor {
+  from {
+    color: #fff;
+  }
+  to {
+    color: #667eea;
+  }
+}
+
+.gps-icon.loading {
+  animation: changeColor 0.5s infinite alternate;
+}

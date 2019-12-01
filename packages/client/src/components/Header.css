@@ -1,0 +1,36 @@
+.slider {
+  -webkit-transition: all 0.4s;
+  transition: all 0.4s;
+}
+
+/* The sliding button */
+.slider:before {
+  position: absolute;
+  content: '';
+  width: 2.5em;
+  height: 100%;
+  background-color: #ebf4ff;
+  border-radius: 4px;
+  -webkit-transition: all 0.4s;
+  transition: all 0.4s;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(40px);
+          transform: translateX(40px);
+}
+
+/* "OFF" Text */
+.slider:after {
+  position: absolute;
+  content: 'F';
+  right: 1em;
+  font-size: 0.9em;
+}
+
+/* "ON" Text */
+input:checked + .slider:after {
+  content: 'C';
+  left: 1em;
+}
+/*# sourceMappingURL=Header.css.map */
