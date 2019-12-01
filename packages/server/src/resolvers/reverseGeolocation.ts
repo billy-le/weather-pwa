@@ -18,6 +18,7 @@ interface ReverseGeolocation {
     cafe: string;
     road: string;
     suburb: string;
+    city: string;
     county: string;
     region: string;
     state: string;
