@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useLazyQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 import { weatherIcons, tempConversion } from '../utils/';
@@ -37,7 +37,9 @@ export const Main = (): JSX.Element | null => {
       });
     } else if (locationType === 'city') {
       if (country) {
-        const searchQuery = `${input.length ? input : country.capital},${country.key ? country.key : 'us'}`;
+        const searchQuery = `${input.length ? input : country.capital ? country.capital : ''},${
+          country.key ? country.key : 'us'
+        }`;
         getCurrentWeather({
           variables: {
             q: searchQuery,
@@ -59,13 +61,22 @@ export const Main = (): JSX.Element | null => {
     }
   }
 
+  useEffect(() => {
+    if (data && data.currentWeather.imageUrl) {
+      const app = document.querySelector<HTMLElement>('#app');
+      if (app) {
+        app.style.backgroundImage = `url("${data.currentWeather.imageUrl}")`;
+      }
+    }
+  }, [data]);
+
   return (
     <Context.Consumer>
       {(context): JSX.Element => (
-        <>
+        <div>
           <Form methods={{ handleGetCurrentWeather }} />
           {loading ? null : data && data.currentWeather ? (
-            <div className="container mx-auto">
+            <div className="container mx-auto z-10">
               <div className="flex justify-center">
                 <div className="p-8">
                   <div className="flex">
@@ -94,7 +105,7 @@ export const Main = (): JSX.Element | null => {
               </div>
             </div>
           ) : null}
-        </>
+        </div>
       )}
     </Context.Consumer>
   );

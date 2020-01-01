@@ -14,7 +14,7 @@ export const Header: React.FC = (): JSX.Element => {
   }
 
   return (
-    <header className="bg-purple-900 shadow-lg">
+    <header className="bg-purple-900 shadow-lg z-10">
       <div className="container justify-between items-center flex h-20 mx-auto">
         <h1 className="mx-8 text-xl md:text-3xl uppercase">Sky Scanner</h1>
         <div className="mx-8 bg-indigo-400 rounded">
