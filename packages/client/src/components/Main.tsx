@@ -62,7 +62,7 @@ export const Main = (): JSX.Element | null => {
   }
 
   useEffect(() => {
-    if (data && data.currentWeather.imageUrl) {
+    if (data && data.currentWeather && data.currentWeather.imageUrl) {
       const app = document.querySelector<HTMLElement>('#app');
       if (app) {
         app.style.backgroundImage = `url("${data.currentWeather.imageUrl}")`;

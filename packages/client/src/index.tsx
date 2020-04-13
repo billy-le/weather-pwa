@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { ApolloProvider } from '@apollo/react-hooks';
 import { client } from './api';
@@ -17,6 +17,21 @@ const App: React.FC = (): JSX.Element => {
   function setUnitType(unit: 'imperial' | 'metric'): void {
     setUnit(unit);
   }
+
+  useEffect(() => {
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker
+          .register('../serviceWorker.js')
+          .then(registration => {
+            console.log('SW registered: ', registration);
+          })
+          .catch(registrationError => {
+            console.log(registrationError);
+          });
+      });
+    }
+  }, []);
 
   return (
     <ApolloProvider client={client}>
